@@ -1,0 +1,48 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.42",
+    "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "lodash": "^4.17.5",
+    "material-ui": "^1.0.0-beta.42",
+    "prop-types": "^15.5.10",
+    "qs": "^6.5.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "redux": "^3.7.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "4.4.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "2.3.0",
+    "eslint-config-react-app": "^2.0.0",
+    "eslint-plugin-flowtype": "^2.40.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "2.1.2",
+    "eslint-plugin-react": "^7.2.0",
+    "prettier": "1.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:ci": "react-scripts build",
+    "test": "react-scripts test --env=jsdom --maxWorkers=3",
+    "test:ci": "CI=true react-scripts test --env=jsdom --maxWorkers=2",
+    "lint": "eslint src",
+    "lint:ci": "eslint src --max-warnings 0",
+    "fix": "eslint --fix src",
+    "q": "eslint --quiet --fix src/index.js $(git diff --cached --name-only --diff-filter=d HEAD | grep .js$)"
+  }
+}

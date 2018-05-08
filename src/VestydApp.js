@@ -2,21 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import cookie from 'cookie';
-import {parse} from 'qs';
-// import {onAppInit} from './actions';
-
 // import LayerPartial from './partials/LayerPartial';
 
 class VestydApp extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    
-    const cookies = cookie.parse(document.cookie);
-    const params = parse(props.location.search.slice(1));
-    console.log('cookies :', cookies, " params :", params);
-    // onAppInit(props.history, props.location, params, cookies)(props.dispatch, props.getState);
-  }
   
   render() {
     return (

@@ -1,10 +1,5 @@
-import preset from './preset';
-import equalizer from './equalizer';
-import modal from './modal';
+import graffiti from './graffiti';
 
 export default {
-  preset,
-  equalizer,
-  modal
-  
+  graffiti,
 };

@@ -3,10 +3,10 @@ import React from 'react';
 import Charts from "../Charts";
 
 class ChartContainer extends React.PureComponent {
-  render() {
-    const {graffiti} = this.props || {};
-    return <Charts graffiti={graffiti}/>
-  }
+    render() {
+        const {graffiti} = this.props || {};
+        return <Charts graffiti={graffiti}/>
+    }
 };
 
 

@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21ff9885-7175-4c37-988d-0af35f5285b6" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/component/graffitiCharts/Chart/index.js" afterPath="$PROJECT_DIR$/src/component/graffitiCharts/Chart/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/component/graffitiCharts/ChartContainer/index.js" afterPath="$PROJECT_DIR$/src/component/graffitiCharts/ChartContainer/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/component/graffitiCharts/Charts/index.js" afterPath="$PROJECT_DIR$/src/component/graffitiCharts/Charts/index.js" />
       <change beforePath="$PROJECT_DIR$/src/component/graffitiCharts/DrawChart/index.js" afterPath="$PROJECT_DIR$/src/component/graffitiCharts/DrawChart/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" afterPath="$PROJECT_DIR$/src/index.css" />
       <change beforePath="$PROJECT_DIR$/src/pages/GraffitiPage/index.js" afterPath="$PROJECT_DIR$/src/pages/GraffitiPage/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -46,19 +42,28 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/DrawChart/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="132" column="20" lean-forward="true" selection-start-line="132" selection-start-column="20" selection-end-line="132" selection-end-column="20" />
+            <state relative-caret-position="530">
+              <caret line="186" column="30" lean-forward="true" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#44#70#0" expanded="true" />
-                <element signature="e#1779#2845#0" expanded="false" />
-                <element signature="e#2871#4255#0" expanded="false" />
-                <element signature="e#5256#6121#0" expanded="false" />
-                <element signature="e#6146#6466#0" expanded="false" />
-                <element signature="e#7117#8613#0" expanded="false" />
-                <element signature="e#8663#10031#0" expanded="false" />
-                <element signature="e#10071#11104#0" expanded="false" />
+                <element signature="e#1454#2520#0" expanded="false" />
+                <element signature="e#2546#3879#0" expanded="false" />
+                <element signature="e#3903#4681#0" expanded="false" />
+                <element signature="e#8200#9473#0" expanded="false" />
+                <element signature="e#9521#10554#0" expanded="false" />
+                <element signature="e#11548#14356#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,9 +79,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>redu</find>
-      <find>myDomain</find>
-      <find>authenticationHeaders</find>
       <find>standardErrors</find>
       <find>cache</find>
       <find>login</find>
@@ -100,6 +102,13 @@
       <find>getPath</find>
       <find>tickFormat</find>
       <find>makeAnnotations</find>
+      <find>d3.select</find>
+      <find>chartMargin</find>
+      <find>dimSVG</find>
+      <find>backgro</find>
+      <find>400</find>
+      <find>svg</find>
+      <find>axisLe</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
@@ -152,11 +161,11 @@
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
         <option value="$PROJECT_DIR$/src/component/ChartContainer/index.js" />
         <option value="$PROJECT_DIR$/src/component/graffitiCharts/charts/index.js" />
-        <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/component/graffitiCharts/Chart/index.js" />
         <option value="$PROJECT_DIR$/src/component/graffitiCharts/Charts/index.js" />
         <option value="$PROJECT_DIR$/src/component/graffitiCharts/ChartContainer/index.js" />
         <option value="$PROJECT_DIR$/src/pages/GraffitiPage/index.js" />
+        <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/component/graffitiCharts/DrawChart/index.js" />
       </list>
     </option>
@@ -193,6 +202,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -209,8 +220,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,7 +292,9 @@
       <workItem from="1525839074617" duration="2727000" />
       <workItem from="1525858739213" duration="223000" />
       <workItem from="1525867809392" duration="1246000" />
-      <workItem from="1525882103186" duration="8247000" />
+      <workItem from="1525882103186" duration="8272000" />
+      <workItem from="1525941622426" duration="1942000" />
+      <workItem from="1525944476453" duration="1169000" />
     </task>
     <task id="LOCAL-00001" summary="[WIP] - remove all hard-coded data">
       <created>1525789330993</created>
@@ -292,11 +303,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525789330993</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[WIP] - remove all hard-coded data">
+      <created>1525931080582</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1525931080582</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71315000" />
+    <option name="totallyTimeSpent" value="74451000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-4" width="1920" height="1084" extended-state="6" />
@@ -334,7 +352,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="[WIP] - remove all hard-coded data" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -583,49 +603,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/Chart/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#44#70#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/Charts/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/ChartContainer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/GraffitiPage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -645,20 +626,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/Charts/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/ChartContainer/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/GraffitiPage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/Chart/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/component/graffitiCharts/DrawChart/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="132" column="20" lean-forward="true" selection-start-line="132" selection-start-column="20" selection-end-line="132" selection-end-column="20" />
+        <state relative-caret-position="530">
+          <caret line="186" column="30" lean-forward="true" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="30" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#44#70#0" expanded="true" />
-            <element signature="e#1779#2845#0" expanded="false" />
-            <element signature="e#2871#4255#0" expanded="false" />
-            <element signature="e#5256#6121#0" expanded="false" />
-            <element signature="e#6146#6466#0" expanded="false" />
-            <element signature="e#7117#8613#0" expanded="false" />
-            <element signature="e#8663#10031#0" expanded="false" />
-            <element signature="e#10071#11104#0" expanded="false" />
+            <element signature="e#1454#2520#0" expanded="false" />
+            <element signature="e#2546#3879#0" expanded="false" />
+            <element signature="e#3903#4681#0" expanded="false" />
+            <element signature="e#8200#9473#0" expanded="false" />
+            <element signature="e#9521#10554#0" expanded="false" />
+            <element signature="e#11548#14356#0" expanded="false" />
           </folding>
         </state>
       </provider>

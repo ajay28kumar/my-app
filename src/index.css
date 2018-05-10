@@ -1,24 +1,21 @@
-@import url(//fonts.googleapis.com/css?family=Roboto:300,400,500);
-
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+    background-color: rgb(200, 120, 160);
 }
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
+.annotation path {
+    stroke: #ff0000;
+    fill: #000000;
 }
 
-.x.axis path {
-    /*display: none;*/
+path.connector {
+    fill: "none";
+    stroke: #000000;
 }
 
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
+.annotation,
+.title text, .annotation text,
+.annotation-subject path {
+    fill: #000000;
+    font-size: 14px;
+    font-weight: "bold";
 }

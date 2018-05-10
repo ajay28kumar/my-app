@@ -23,7 +23,6 @@ class GraffitiPage extends React.PureComponent {
         return <div>
             <h1>Graffiti</h1>
             <ChartContainer graffiti={this.props.graffiti} chartAction={this.props.doGraffitiAction}/>
-            <pre>{JSON.stringify(this.props.graffiti, null, 3)}</pre>
         </div>
     }
 };

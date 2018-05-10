@@ -1,12 +1,12 @@
 /* eslint react/require-default-props: 0 */
 import React from 'react';
 import * as d3 from 'd3';
-import ReactFauxDOM from 'react-faux-dom'
+import ReactFauxDOM from 'react-faux-dom';
 
 const chartsPerRow = 1;
 const chartMargin = {top: 80, bottom: 20, left: 30, right: 10};
 const axisTextMargin = {x: 20, y: 70};
-const dimSVG = {width: window.innerWidth / chartsPerRow, height: 0};
+const dimSVG = {width: window.innerWidth, height: 0};
 dimSVG.height = dimSVG.width * 0.612;
 const dimChart = {
     width: dimSVG.width - chartMargin.left - chartMargin.right,
@@ -44,15 +44,6 @@ const timeFormat = d3.timeFormat("%Y-%m-%d");
 const xbarCush = 0;	// NOT ENABLED YET. For time axis, the bars need to end at the recort_date so the issue didnt arise.
 
 
-const data = [
-    {date: new Date(2007, 3, 24), value: 93.24},
-    {date: new Date(2007, 3, 25), value: 95.35},
-    {date: new Date(2007, 3, 26), value: 98.84},
-    {date: new Date(2007, 3, 27), value: 99.92},
-    {date: new Date(2007, 3, 30), value: 99.80},
-    {date: new Date(2007, 4, 1), value: 99.47}
-];
-
 class DrawChart extends React.PureComponent {
 
 
@@ -89,7 +80,6 @@ class DrawChart extends React.PureComponent {
 
     getYaxis = (i) => {
         const {getChart} = this.props || {};
-        // console.log('getChart : ', getChart);
         const {chart_axis: chartAxis} = getChart || {};
         axisLengths.x = dimChart.width - (chartAxis.length - i) * axisTextMargin.y;
         axisBaseLoc.yax.x = axisLengths.x + chartMargin.left;
@@ -123,23 +113,15 @@ class DrawChart extends React.PureComponent {
             .attr("fill", cxss.color)
             .attr("font-size", cxss.fs)
             .attr("transform", "rotate(-90)");
-
-
         return ay;
     };
 
     getPath = (i) => {
         const {type} = cxss || {};
-        //2009-01-02
-        console.log('scaleX : ', scaleX(`2009-01-02`));
-
         switch (type) {
             case 'line': {
                 const line = d3.line()
-                    .x((d) => {
-                        console.log('scaleX', d);
-                        return scaleX(d['record_date'])
-                    })
+                    .x((d) => scaleX(d['record_date']))
                     .y((d) => scales[i](d[cx_seriesCol])
                     );
                 layers[cxss.layer].append("path")
@@ -153,7 +135,7 @@ class DrawChart extends React.PureComponent {
                 break;
             default:
                 //TODO: handle other types
-                console.log('handle data here');
+                console.log('handle data here : ', type);
                 break;
         }
     };
@@ -317,7 +299,8 @@ class DrawChart extends React.PureComponent {
         const {getChart} = this.props || {};
         const {chart_settings, chart_axis: chartAxis, series_data: seriesData, stock_data: stockData} = getChart || {};
         const chartSettings = JSON.parse(chart_settings);
-        const canva = d3.select("body").append("svg")
+        const node = ReactFauxDOM.createElement('svg');
+        const canva = d3.select(node)
             .attr("height", dimSVG.height)
             .attr("width", dimSVG.width)
             .style("background-color", chartSettings.canvas.backColor)
@@ -332,7 +315,7 @@ class DrawChart extends React.PureComponent {
         });
         stockData.forEach(d => {
             d.price = +d.price;
-            d.TTMValue = +d.TTMValue;
+            d.record_date = parseDate(d.record_date)
         });
         const xAxis = this.getXaxis();
 
@@ -403,8 +386,6 @@ class DrawChart extends React.PureComponent {
         this.makeVerticalRulers(chartSettings);
         this.makeHorizontalRulers(chartSettings);
         this.makePeriods(chartSettings);
-
-        const node = ReactFauxDOM.createElement('svg');
 
         return node.toReact()
         // return <h1>Hello world</h1>

@@ -14,23 +14,16 @@ const dimChart = {
 };
 
 //TODO : remove these constants from here
-const scales = [];
-const axis = [];
-const paths = [];
+let scales = [];
+// const axis = [];
+// const paths = [];
 let layers = [];
 let scaleX;
 let cxss = {};
-let cx_seriesType;
-let cx_seriesCol;
-let cx_seriesFilter1;
-let cx_seriesFilter2;
-let dataCol1;
-let dataCol2;
+let cx_seriesCol = '';
 let startTick;
 let endTick;
-let perTick;
-let tickVals;
-let filtData;
+let filtData = [];
 let data_max;
 let data_min;
 
@@ -45,7 +38,20 @@ const xbarCush = 0;	// NOT ENABLED YET. For time axis, the bars need to end at t
 
 
 class DrawChart extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        scales = [];
+        layers = [];
+        scaleX = '';
+        cxss = {};
+        cx_seriesCol = '';
+        startTick = 0;
+        endTick = 0;
+        filtData = [];
+        data_max = 0;
+        data_min = 0;
 
+    }
 
     getXaxis = () => {
         let ax;
@@ -78,7 +84,7 @@ class DrawChart extends React.PureComponent {
     };
 
 
-    getYaxis = (i) => {
+    getYaxis = (i, tickVals) => {
         const {getChart} = this.props || {};
         const {chart_axis: chartAxis} = getChart || {};
         axisLengths.x = dimChart.width - (chartAxis.length - i) * axisTextMargin.y;
@@ -309,28 +315,28 @@ class DrawChart extends React.PureComponent {
             .attr("transform", "translate(0,0)");
         layers = getLayers(chartAxis, canva);
         seriesData.forEach(d => {
-            d.record_date = parseDate(d.record_date);
+            if (parseDate(d.record_date) !== null) {
+                d.record_date = parseDate(d.record_date);
+            }
             d.TTMValue = +d.TTMValue;
 
         });
         stockData.forEach(d => {
+            if (parseDate(d.record_date) !== null) {
+                d.record_date = parseDate(d.record_date);
+            }
             d.price = +d.price;
-            d.record_date = parseDate(d.record_date)
         });
-        const xAxis = this.getXaxis();
+        this.getXaxis();
 
         chartAxis.forEach((item, index) => {
             cxss = JSON.parse(item.series_setting);
-            cx_seriesType = item.code.split(".")[0];	//stock_data //series_data
+            const cx_seriesType = item.code.split(".")[0];	//stock_data //series_data
             cx_seriesCol = item.code.split(".")[1]; //price //TTMValue
-            cx_seriesFilter1 = item.label.split(":")[0]; //AAPL
-            cx_seriesFilter2 = item.label.split(":")[1]; //CLOSE_PRICE
-            dataCol1 = "ticker";
-            if (cx_seriesType === "series_data") {
-                dataCol2 = "seriescode";
-            } else {
-                dataCol2 = "price_type";
-            }
+            const cx_seriesFilter1 = item.label.split(":")[0]; //AAPL
+            const cx_seriesFilter2 = item.label.split(":")[1]; //CLOSE_PRICE
+            const dataCol1 = "ticker";
+            const dataCol2 = (cx_seriesType === "series_data") ? "seriescode" : "price_type";
             filtData = getChart[cx_seriesType].filter(v => v[dataCol1] === cx_seriesFilter1 & v[dataCol2] === cx_seriesFilter2);
             filtData.forEach((d) => {
                 d[cx_seriesCol] = +d[cx_seriesCol] / cxss.divisor
@@ -341,10 +347,10 @@ class DrawChart extends React.PureComponent {
                 .attr("fill", chartSettings.xaxis.color)
                 .attr("font-size", chartSettings.xaxis.fs);
 
-            tickVals = this.tickCalc();
+            const tickVals = this.tickCalc();
             scales[index] = this.getScale();
-            axis[index] = this.getYaxis(index);
-            paths[index] = this.getPath(index);
+            this.getYaxis(index, tickVals);
+            this.getPath(index);
 
             // Styling
             d3.selectAll('.axis .tick line')

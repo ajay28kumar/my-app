@@ -2,10 +2,6 @@
 import React from 'react';
 import DrawChart from '../DrawChart';
 
-const Chart = (props) => {
-  
-  return <DrawChart getChart={props.getChart}/>
-  
-};
+const Chart = ({getChart, bounds}) => <DrawChart getChart={getChart}/>
 
 export default Chart;

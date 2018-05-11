@@ -3,11 +3,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import cookie from "cookie";
+import {withStyles} from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
 import {doGraffitiAction} from "../../actions";
 import {parse} from "qs";
 import ChartContainer from "../../component/graffitiCharts/ChartContainer";
 
 //import PropTypes from 'prop-types';
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        height: 140,
+        width: 100,
+    },
+    control: {
+        padding: theme.spacing.unit * 2,
+    },
+});
+
 
 class GraffitiPage extends React.PureComponent {
     constructor(props) {
@@ -20,10 +35,12 @@ class GraffitiPage extends React.PureComponent {
     }
 
     render() {
-        return <div>
-            <h1>Graffiti</h1>
-            <ChartContainer graffiti={this.props.graffiti} chartAction={this.props.doGraffitiAction}/>
-        </div>
+        const {classes, graffiti, doGraffitiAction} = this.props || {};
+        return <Grid container className={classes.root} spacing={16}>
+            <Grid item xs={12}>
+                <ChartContainer graffiti={graffiti} chartAction={doGraffitiAction}/>
+            </Grid>
+        </Grid>
     }
 };
 
@@ -35,4 +52,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {doGraffitiAction})(GraffitiPage);
+export default connect(mapStateToProps, {doGraffitiAction})(withStyles(styles)(GraffitiPage));

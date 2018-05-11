@@ -4,6 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import cookie from "cookie";
 import {withStyles} from 'material-ui/styles';
+
 import Grid from 'material-ui/Grid';
 import {doGraffitiAction} from "../../actions";
 import {parse} from "qs";
@@ -14,13 +15,8 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
     },
-    paper: {
-        height: 140,
-        width: 100,
-    },
-    control: {
-        padding: theme.spacing.unit * 2,
-    },
+
+
 });
 
 
@@ -36,8 +32,12 @@ class GraffitiPage extends React.PureComponent {
 
     render() {
         const {classes, graffiti, doGraffitiAction} = this.props || {};
-        return <Grid container className={classes.root} spacing={16}>
-            <Grid item xs={12}>
+        return <Grid container className={classes.root} spacing={8}>
+            <Grid item xs={12} sm={6}>
+
+                <ChartContainer graffiti={graffiti} chartAction={doGraffitiAction}/>
+            </Grid>
+            <Grid item xs={12} sm={5}>
                 <ChartContainer graffiti={graffiti} chartAction={doGraffitiAction}/>
             </Grid>
         </Grid>

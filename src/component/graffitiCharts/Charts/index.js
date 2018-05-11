@@ -8,7 +8,7 @@ const Charts = withContentRect('bounds')(({measureRef, measure, contentRect, gra
     const {getGraffitiCharts} = graffiti || {};
     const {getChart, apiStatus} = getGraffitiCharts || {};
     if (apiStatus === 'success') {
-        return <div ref={measureRef}><Chart bounds={bounds} getChart={getChart}/></div>
+        return <Chart bounds={bounds} getChart={getChart}/>
     }
 
     return <div ref={measureRef}/>

@@ -3,10 +3,10 @@ import React from 'react';
 import * as d3 from 'd3';
 import ReactFauxDOM from 'react-faux-dom';
 
-const chartsPerRow = 1;
-const chartMargin = {top: 80, bottom: 20, left: 30, right: 10};
+const chartsPerRow = 2;
+let chartMargin = {top: 80, bottom: 20, left: 10, right: 10};
 const axisTextMargin = {x: 20, y: 70};
-const dimSVG = {width: window.innerWidth / chartsPerRow, height: 0};
+let dimSVG = {width: (window.innerWidth - 100) / chartsPerRow, height: 0};
 dimSVG.height = dimSVG.width * 0.612;
 const dimChart = {
     width: dimSVG.width - chartMargin.left - chartMargin.right,
@@ -40,6 +40,8 @@ const parseDate = d3.timeParse("%Y-%m-%d");
 class DrawChart extends React.PureComponent {
     constructor(props) {
         super(props);
+        // chartMargin = {...props.bounds};
+        // dimSVG = {width: props.bounds.width, height: props.bounds.width * 0.612};
         scales = [];
         layers = [];
         scaleX = '';

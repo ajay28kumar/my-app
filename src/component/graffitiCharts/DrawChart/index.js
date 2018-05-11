@@ -6,7 +6,7 @@ import ReactFauxDOM from 'react-faux-dom';
 const chartsPerRow = 1;
 const chartMargin = {top: 80, bottom: 20, left: 30, right: 10};
 const axisTextMargin = {x: 20, y: 70};
-const dimSVG = {width: window.innerWidth, height: 0};
+const dimSVG = {width: window.innerWidth / chartsPerRow, height: 0};
 dimSVG.height = dimSVG.width * 0.612;
 const dimChart = {
     width: dimSVG.width - chartMargin.left - chartMargin.right,
@@ -31,10 +31,10 @@ const axisLengths = {x: dimChart.width - axisTextMargin.y, y: dimChart.height - 
 const axisBaseLoc = {xax: {x: 0, y: axisLengths.y + chartMargin.top}, yax: {x: axisLengths.x + chartMargin.left, y: 0}};
 
 const parseDate = d3.timeParse("%Y-%m-%d");
-const timeFormat = d3.timeFormat("%Y-%m-%d");
+// const timeFormat = d3.timeFormat("%Y-%m-%d");
 
 // Set cushion for last data point on x-axis. So that the last bar doesnt cross the x-axis
-const xbarCush = 0;	// NOT ENABLED YET. For time axis, the bars need to end at the recort_date so the issue didnt arise.
+// const xbarCush = 0;	// NOT ENABLED YET. For time axis, the bars need to end at the recort_date so the issue didnt arise.
 
 
 class DrawChart extends React.PureComponent {

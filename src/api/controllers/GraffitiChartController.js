@@ -1,11 +1,13 @@
 import requestService from '../services/requestService';
+import decorators from '../decorators'
+
 
 const getCharts = (logger, data, query, auth) => {
-  const request = {
-    method: 'post',
-    
-    data: {
-      query: `
+    const request = {
+        method: 'post',
+
+        data: {
+            query: `
         query{
           getChart(code: "X4"){
             code
@@ -68,13 +70,13 @@ const getCharts = (logger, data, query, auth) => {
           }
         }
       `
-    },
-  };
-  return requestService(logger, query, auth, request, d => d.data)
-  
+        },
+    };
+    return requestService(logger, query, auth, request, d => decorators.graffiti(undefined, d.data))
+
 };
 
 
 export default {
-  getCharts
+    getCharts
 };

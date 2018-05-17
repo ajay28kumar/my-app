@@ -2,21 +2,24 @@
 import React from 'react';
 import * as d3 from 'd3';
 import ReactFauxDOM from 'react-faux-dom';
+import {parseDate} from "../../../helpers/utils";
+import {getLayers, getXaxis} from "../../../helpers/drawChart";
 
-const chartsPerRow = 2;
-let chartMargin = {top: 80, bottom: 20, left: 10, right: 10};
-const axisTextMargin = {x: 20, y: 70};
-let dimSVG = {width: (window.innerWidth - 100) / chartsPerRow, height: 0};
-dimSVG.height = dimSVG.width * 0.612;
-const dimChart = {
-    width: dimSVG.width - chartMargin.left - chartMargin.right,
-    height: dimSVG.height - chartMargin.top - chartMargin.bottom
-};
+// let chartMargin = {top: 80, bottom: 20, left: 10, right: 10};
+// const axisTextMargin = {x: 20, y: 70};
+// let dimSVG = {width: (window.innerWidth - 50), height: 0};
+// dimSVG.height = dimSVG.width * 0.612;
+// const dimChart = {
+//     width: dimSVG.width - chartMargin.left - chartMargin.right,
+//     height: dimSVG.height - chartMargin.top - chartMargin.bottom
+// };
+// const axisLengths = {x: dimChart.width - axisTextMargin.y, y: dimChart.height - axisTextMargin.x};
+// const axisBaseLoc = {xax: {x: 0, y: axisLengths.y + chartMargin.top}, yax: {x: axisLengths.x + chartMargin.left, y: 0}};
+//
+
 
 //TODO : remove these constants from here
 let scales = [];
-// const axis = [];
-// const paths = [];
 let layers = [];
 let scaleX;
 let cxss = {};
@@ -27,11 +30,6 @@ let filtData = [];
 let data_max;
 let data_min;
 
-const axisLengths = {x: dimChart.width - axisTextMargin.y, y: dimChart.height - axisTextMargin.x};
-const axisBaseLoc = {xax: {x: 0, y: axisLengths.y + chartMargin.top}, yax: {x: axisLengths.x + chartMargin.left, y: 0}};
-
-const parseDate = d3.timeParse("%Y-%m-%d");
-// const timeFormat = d3.timeFormat("%Y-%m-%d");
 
 // Set cushion for last data point on x-axis. So that the last bar doesnt cross the x-axis
 // const xbarCush = 0;	// NOT ENABLED YET. For time axis, the bars need to end at the recort_date so the issue didnt arise.
@@ -40,8 +38,6 @@ const parseDate = d3.timeParse("%Y-%m-%d");
 class DrawChart extends React.PureComponent {
     constructor(props) {
         super(props);
-        // chartMargin = {...props.bounds};
-        // dimSVG = {width: props.bounds.width, height: props.bounds.width * 0.612};
         scales = [];
         layers = [];
         scaleX = '';
@@ -55,40 +51,10 @@ class DrawChart extends React.PureComponent {
 
     }
 
-    getXaxis = () => {
-        let ax;
-        const {getChart} = this.props || {};
-        // console.log('getChart : ', getChart);
-        const {chart_axis: chartAxis, chart_type: chartType} = getChart || {};
-        axisLengths.x = dimChart.width - (chartAxis.length) * axisTextMargin.y;
-        if (chartType !== "SCATTER") {
-            scaleX = d3.scaleTime()
-                .range([chartMargin.left, axisLengths.x + chartMargin.left])
-                .domain([parseDate(getChart.from_date), parseDate(getChart.to_date)]);
-            ax = d3.axisBottom()
-                .scale(scaleX)
-                .tickFormat(d3.timeFormat("%Y"))
-                .ticks()
-                .tickSizeInner(-axisLengths.y)
-                .tickSizeOuter(0)
-                .tickPadding(10);
-        }
-
-        //TODO:  handle  layers 0th element here
-        layers[0].append("g")
-            .attr("id", "xaxg")
-            .attr("transform", "translate(" + axisBaseLoc.xax.x + "," + axisBaseLoc.xax.y + ")")
-            .attr("class", "axis")
-            .call(ax);
-
-
-        return ax;
-    };
-
-
     getYaxis = (i, tickVals) => {
-        const {getChart} = this.props || {};
-        const {chart_axis: chartAxis} = getChart || {};
+        const {getChart, dimensions} = this.props || {};
+        const {chartAxis} = getChart || {};
+        const {axisLengths, dimChart, axisTextMargin, chartMargin, axisBaseLoc} = dimensions || {};
         axisLengths.x = dimChart.width - (chartAxis.length - i) * axisTextMargin.y;
         axisBaseLoc.yax.x = axisLengths.x + chartMargin.left;
 
@@ -102,9 +68,10 @@ class DrawChart extends React.PureComponent {
         if (i === 0) {
             ay.tickSizeInner(-axisLengths.x);
         }
+        console.log('translate 1 y axis: ', axisBaseLoc.yax);
         layers[0].append("g")
             .attr("id", "yaxg" + i)
-            .attr("transform", "translate(" + axisBaseLoc.yax.x + "," + axisBaseLoc.yax.y + ")")
+            .attr("transform", `translate(${axisBaseLoc.yax.x},${axisBaseLoc.yax.y})`)
             .attr("class", "axis")
             .call(ay);
 
@@ -177,7 +144,8 @@ class DrawChart extends React.PureComponent {
 
 
     getScale = () => {
-
+        const {dimensions} = this.props || {};
+        const {axisLengths, chartMargin} = dimensions || {};
         switch (cxss.scale) {
             case "linear"    :
                 return d3.scaleLinear().domain([startTick, endTick]).range([axisLengths.y + chartMargin.top, chartMargin.top]);
@@ -205,8 +173,10 @@ class DrawChart extends React.PureComponent {
     };
 
 
-    makeVerticalRulers = (chartSettings) => {
-        const {vRuler} = chartSettings || {};
+    makeVerticalRulers = (chartSetting) => {
+        const {dimensions} = this.props || {};
+        const {vRuler} = chartSetting || {};
+        const {axisBaseLoc, chartMargin} = dimensions || {};
         vRuler.forEach((item, vRC) => {
             layers[layers.length - 1].append("line")
                 .attr("x1", scaleX(parseDate(item.val)))
@@ -241,8 +211,8 @@ class DrawChart extends React.PureComponent {
     };
 
 
-    makeHorizontalRulers = (chartSettings) => {
-        const {hRuler} = chartSettings || {};
+    makeHorizontalRulers = (chartSetting) => {
+        const {hRuler} = chartSetting || {};
 
         hRuler.forEach((item, hRC) => {
             layers[layers.length - 1].append("line")
@@ -276,8 +246,8 @@ class DrawChart extends React.PureComponent {
 
     };
 
-    makePeriods = (chartSettings) => {
-        const {periods} = chartSettings || {};
+    makePeriods = (chartSetting) => {
+        const {periods} = chartSetting || {};
 
         periods.forEach((item, pC) => {
             layers[0].append("rect")
@@ -301,35 +271,40 @@ class DrawChart extends React.PureComponent {
                 .attr("transform", "rotate(-90)");
         })
 
-    }
+    };
 
     render() {
-        const {getChart} = this.props || {};
-        const {chart_settings, chart_axis: chartAxis, series_data: seriesData, stock_data: stockData} = getChart || {};
-        const chartSettings = JSON.parse(chart_settings);
+
+        const {getChart, dimensions} = this.props || {};
+        const {chartMargin, dimSVG, axisBaseLoc} = dimensions || {};
+        const {chartSetting, chartAxis, series_data, stock_data} = getChart || {};
         const node = ReactFauxDOM.createElement('svg');
         const canva = d3.select(node)
             .attr("height", dimSVG.height)
             .attr("width", dimSVG.width)
-            .style("background-color", chartSettings.canvas.backColor)
+            .style("background-color", chartSetting.canvas.backColor)
             .append("g")
             .attr("id", "svgg")
             .attr("transform", "translate(0,0)");
         layers = getLayers(chartAxis, canva);
-        seriesData.forEach(d => {
-            if (parseDate(d.record_date) !== null) {
-                d.record_date = parseDate(d.record_date);
-            }
+        series_data.forEach(d => {
             d.TTMValue = +d.TTMValue;
 
         });
-        stockData.forEach(d => {
-            if (parseDate(d.record_date) !== null) {
-                d.record_date = parseDate(d.record_date);
-            }
+        stock_data.forEach(d => {
             d.price = +d.price;
         });
-        this.getXaxis();
+
+        //TODO:  handle  layers 0th element here from getXaxis
+        const {ax, scaleX: xScale} = getXaxis(this.props, dimensions);
+        scaleX = xScale;
+        console.log('translate 0 : ', axisBaseLoc.xax);
+        layers[0].append("g")
+            .attr("id", "xaxg")
+            .attr("transform", "translate(" + axisBaseLoc.xax.x + "," + axisBaseLoc.xax.y + ")")
+            .attr("class", "axis")
+            .call(ax);
+
 
         chartAxis.forEach((item, index) => {
             cxss = JSON.parse(item.series_setting);
@@ -346,8 +321,8 @@ class DrawChart extends React.PureComponent {
             data_max = d3.max(filtData, d => d[cx_seriesCol]);
             data_min = d3.min(filtData, d => d[cx_seriesCol]);
             d3.selectAll('#xaxg .tick text')
-                .attr("fill", chartSettings.xaxis.color)
-                .attr("font-size", chartSettings.xaxis.fs);
+                .attr("fill", chartSetting.xaxis.color)
+                .attr("font-size", chartSetting.xaxis.fs);
 
             const tickVals = this.tickCalc();
             scales[index] = this.getScale();
@@ -356,125 +331,50 @@ class DrawChart extends React.PureComponent {
 
             // Styling
             d3.selectAll('.axis .tick line')
-                .attr("stroke", chartSettings.grid.color)
-                .attr("stroke-width", chartSettings.grid.strokeWidth)
-                .attr("stroke-dasharray", chartSettings.grid.dashArray);
+                .attr("stroke", chartSetting.grid.color)
+                .attr("stroke-width", chartSetting.grid.strokeWidth)
+                .attr("stroke-dasharray", chartSetting.grid.dashArray);
 
             const title_y = chartMargin.top / 2.25;
             layers[layers.length - 1].append("text")
                 .attr("id", "ChartTitle")
-                .text(chartSettings.title.text)
+                .text(chartSetting.title.text)
                 .attr("x", chartMargin.left + 20)
                 .attr("y", title_y)
                 .attr("text-anchor", "start")
-                .attr("font-size", chartSettings.title.fs)
-                .attr("fill", chartSettings.title.color);
+                .attr("font-size", chartSetting.title.fs)
+                .attr("fill", chartSetting.title.color);
 
             layers[layers.length - 1].append("text")
                 .attr("id", "chartSubTitle")
-                .text(chartSettings.subTitle.text)
+                .text(chartSetting.subTitle.text)
                 .attr("x", chartMargin.left + 20)
                 .attr("y", title_y + 25)
                 .attr("text-anchor", "start")
-                .attr("font-size", chartSettings.subTitle.fs)
-                .attr("fill", chartSettings.subTitle.fs);
+                .attr("font-size", chartSetting.subTitle.fs)
+                .attr("fill", chartSetting.subTitle.fs);
 
             layers[layers.length - 1].append("text")
                 .attr("id", "watermark")
-                .text(chartSettings.watermark.text)
+                .text(chartSetting.watermark.text)
                 .attr("x", chartMargin.left + 20)
                 .attr("y", axisBaseLoc.xax.y - 10)
                 .attr("text-anchor", "start")
-                .attr("font-size", chartSettings.watermark.fs)
-                .attr("fill", chartSettings.watermark.fs);
+                .attr("font-size", chartSetting.watermark.fs)
+                .attr("fill", chartSetting.watermark.fs);
 
         });
 
-        // this.makeAnnotations(chartSettings);
-        this.makeVerticalRulers(chartSettings);
-        this.makeHorizontalRulers(chartSettings);
-        this.makePeriods(chartSettings);
+        // this.makeAnnotations(chartSetting);
+        this.makeVerticalRulers(chartSetting);
+        this.makeHorizontalRulers(chartSetting);
+        this.makePeriods(chartSetting);
 
         return node.toReact()
         // return <h1>Hello world</h1>
     }
 
 };
-
-const getLayers = (chartAxis, canva) => {
-    const res = [];
-    for (let nL = 0; nL < chartAxis.length + 2; nL++) {
-        res[nL] = canva.append("g").attr("id", "layer" + nL).attr("transform", "translate(0,0)");
-    }
-    return res;
-};
-/*
-// this.getYaxis(0);
-        // data.forEach(function (d) {
-        //     d.value = +d.value;
-        // });
-        //
-        // const margin = {top: 20, right: 20, bottom: 30, left: 50};
-        // const width = 960 - margin.left - margin.right;
-        // const height = 500 - margin.top - margin.bottom;
-        //
-        //
-        // const x = d3.scaleTime()
-        //     .range([0, width]);
-        //
-        // const y = d3.scaleLinear()
-        //     .range([height, 0]);
-        //
-        // // const xAxis = d3.axisBottom(x);
-        //
-        // const yAxis = d3.axisRight(y);
-        //
-        //
-        // const node = ReactFauxDOM.createElement('svg');
-        // const svg = d3.select(node)
-        //     .attr('width', width + margin.left + margin.right)
-        //     .attr('height', height + margin.top + margin.bottom)
-        //     .append('g')
-        //     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-        //
-        // svg.append('g')
-        //     .attr('class', 'x axis')
-        //     .attr('transform', 'translate(0,' + height + ')')
-        //     .call(xAxis);
-        //
-        // svg.append('g')
-        //     .attr('class', 'y axis')
-        //     .call(yAxis)
-        //     .append('text')
-        //     .attr('transform', 'rotate(-90)')
-        //     .attr('y', 6)
-        //     .attr('dy', '.71em')
-        //     .style('text-anchor', 'end')
-        //     .text('Price ($)');
-        //
-        // x.domain(d3.extent(data, function (d) {
-        //     return d.date
-        // }));
-        // y.domain(d3.extent(data, function (d) {
-        //     return d.value
-        // }));
-        //
-        // const line = d3.line()
-        //     .x(function (d) {
-        //         return x(d.date)
-        //     })
-        //     .y(function (d) {
-        //         return y(d.value)
-        //     });
-        //
-        // svg.append('path')
-        //     .datum(data)
-        //     .attr('class', 'line')
-        //     .attr('d', line);
-        //
-        // return node.toReact()
-
- */
 
 export default DrawChart;
 

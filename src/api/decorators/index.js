@@ -1,6 +1,6 @@
-import userSession from './userSession';
+import graffiti from './graffiti';
 
 export default {
-  
-  userSession,
+
+    graffiti,
 };

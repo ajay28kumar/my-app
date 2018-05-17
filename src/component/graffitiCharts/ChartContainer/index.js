@@ -11,6 +11,7 @@ class ChartContainer extends React.PureComponent {
         const {graffiti} = this.props || {};
         return <Charts graffiti={graffiti}/>
 
+
     }
 };
 
